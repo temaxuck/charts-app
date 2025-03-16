@@ -1,30 +1,56 @@
-import { token } from "./auth";
+import { getAccessToken, token } from "./auth";
 import { AuthError } from "./exceptions";
+import { ChartData } from "./models";
 
 export async function loginRequest(apiUrl: string, username: string, password: string): Promise<token> {
-  try {
-    const response = await fetch(
-      apiUrl,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        })
-      });
+  const response = await fetch(
+    apiUrl,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      })
+    });
 
-    const json = await response.json();
-    if (!response.ok) {
-      throw new Error(json.detail);
-    }
+  const json = await response.json();
+
+  if (response.ok) {
     return json.access_token as token;
-  } catch (error) {
-    const message = (error as Error).message;
-    if (!!message)
-      throw new AuthError("Login failed", message);
-    throw new AuthError("Login failed", null);
   }
+
+  if (response.status === 401) {
+    throw new AuthError(json.detail);
+  }
+
+  throw new Error("Unexpected error");
+}
+
+export async function getChartData(apiUrl: string): Promise<ChartData> {
+  const token = getAccessToken();
+  const response = await fetch(
+    apiUrl,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    }
+  );
+
+  const json = await response.json();
+
+  if (response.ok) {
+    return ChartData.fromJSON(json);
+  }
+
+  if (response.status === 401) {
+    throw new AuthError(json.detail);
+  }
+
+  throw new Error("Unknown error");
 }
