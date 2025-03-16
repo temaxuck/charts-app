@@ -18,7 +18,7 @@ async def chart_data(_: Annotated[Dict, Depends(authorize)]):
 @app.post("/login", response_model=LoginResponse)
 async def login(credentials: LoginRequest):
     if not authenticate(credentials.username, credentials.password.get_secret_value()):
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED)
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Bad credentials")
 
     access_token = create_access_token(credentials.username)
     return {"access_token": access_token}

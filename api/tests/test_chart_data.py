@@ -25,8 +25,8 @@ def test_get_chart_data_successful(token):
     response_data: Dict[str, Any] = response.json()
 
     assert response.status_code == status.HTTP_200_OK
-    assert response_data.get("value") != None
-    assert response_data.get("max") != None
+    assert response_data.get("value") is not None
+    assert response_data.get("max") is not None
     assert response_data["value"] <= response_data["max"]
 
 

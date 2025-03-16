@@ -1,4 +1,3 @@
-from numbers import Number
 from random import random
 
 
