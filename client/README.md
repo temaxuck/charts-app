@@ -2,7 +2,7 @@
 
 Клиентское часть приложения **Charts app**
 
-# Quick start
+## Quick start
 
 1. Установите зависимости:
 ```shell
