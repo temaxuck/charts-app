@@ -1,6 +1,3 @@
-import pytest
-
-from datetime import datetime, timedelta
 from fastapi import Depends, status
 from fastapi.testclient import TestClient
 from jwt import decode
@@ -16,7 +13,6 @@ settings = Config()
 
 
 class TestLogin:
-    # TODO: provide valid username and password
     valid_credentials = {"username": "admin", "password": "admin"}
     invalid_credentials = {"username": "1nv4l1d_u53rn4m3", "password": "p455w0rd"}
 
