@@ -1,16 +1,18 @@
-from typing import Annotated
+from typing import Annotated, Dict
 from fastapi import Depends, FastAPI, HTTPException, status
 
 from dependencies import authorize
+from models import ChartData
 from services.auth import authenticate, create_access_token
-from schemas import LoginRequest, LoginResponse
+from schemas import LoginRequest, LoginResponse, ChartDataResponse
 
 app = FastAPI()
 
 
-@app.get("/")
-async def index(_: Annotated[str, Depends(authorize)]):
-    return {"msg": "Hello, World!"}
+@app.get("/chart-data", response_model=ChartDataResponse)
+async def chart_data(_: Annotated[Dict, Depends(authorize)]):
+    data = ChartData()
+    return {"value": data.current_value, "max": data.max_value}
 
 
 @app.post("/login", response_model=LoginResponse)
