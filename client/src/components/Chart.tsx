@@ -1,5 +1,6 @@
-import { Box, Card, CircularProgress, Divider, Typography } from "@mui/material";
+import { Box, Card, Divider, Typography } from "@mui/material";
 import * as React from "react";
+import DiagramChart from "./DiagramChart";
 
 export interface Props {
   currentValue: number;
@@ -25,30 +26,5 @@ export default function Chart({ currentValue, maxValue }: Props) {
         <DiagramChart percentage={percentage} />
       </Box>
     </Card>
-  );
-}
-
-
-function DiagramChart({ percentage }: { percentage: number }) {
-  return (
-    <Box sx={{ position: "relative", display: "inline-flex" }}>
-      <CircularProgress variant="determinate" value={percentage} size={100} />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: "absolute",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography variant="h5">
-          {`${Math.round(percentage)}%`}
-        </Typography>
-      </Box>
-    </Box>
   );
 }
