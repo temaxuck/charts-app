@@ -2,9 +2,11 @@ import { Container, Divider, Typography } from "@mui/material";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
+import Header from "../components/Header";
 import LoginForm from "../components/LoginForm";
-import { getAccessToken, loginRequest, setAccessToken } from "../lib/auth";
-import { AuthError } from "~lib/exceptions";
+import { loginRequest } from "../lib/api";
+import { getAccessToken, setAccessToken } from "../lib/auth";
+import { AuthError } from "../lib/exceptions";
 
 export default function LoginPage() {
   const [error, setError] = React.useState<string | null>(null);
@@ -35,8 +37,9 @@ export default function LoginPage() {
 
   return (
     <Container component="main">
-      <Typography variant="h5" sx={{ mb: 1 }}>Sign in</Typography>
-      <Divider sx={{ mb: 3 }} />
+      <Header>
+        <Typography variant="h5" sx={{ mb: 1 }}>Sign in</Typography>
+      </Header>
       {error && <Typography color="error">{error}</Typography>} {/* Display the error message */}
       <LoginForm onLogin={handleLogin} />
     </Container>
