@@ -1,8 +1,18 @@
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import * as React from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-export default () => (
-  <>
-    <h1>Welcome to React Vite Micro App!</h1>
-    <p>Hard to get more minimal than this React app.</p>
-  </>
-);
+import DashboardPage from "./pages/DashboardPage";
+import LoginPage from "./pages/LoginPage";
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </Router>
+  );
+}
+
