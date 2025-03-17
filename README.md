@@ -16,6 +16,8 @@ docker compose up -d # флаг -d опционален
 
 2. Перейдите по адресу http://localhost:4173/
 
+3. Для аутентификации используйте имя пользователя *admin* и пароль *admin*
+
 ### Вручную
 
 Для запуска серверного и клиентского приложений вручную следуйте инструкциям *README.md* внутри директорий [api/](https://github.com/temaxuck/charts-app/blob/main/api/README.md) и [client/](https://github.com/temaxuck/charts-app/blob/main/client/README.md).
