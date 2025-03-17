@@ -21,11 +21,10 @@ export default function LoginPage() {
       navigate("/");
     } catch (error) {
       if (error instanceof AuthError) {
-        if (error.details)
-          setError(error.details);
-        else
-          setError("Unexpected error happened");
+        setError(error.details || "Unexpected error happened");
+        return;
       }
+      setError("Unexpected error happened");
     }
   };
 
