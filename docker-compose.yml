@@ -11,6 +11,8 @@ services:
     ports:
       - "8000:8000"
     working_dir: /app/src
+    networks:
+      - charts-app-network
 
   charts-app-client:
     build:
@@ -18,7 +20,13 @@ services:
       dockerfile: Dockerfile
     container_name: client
     environment:
-      - VITE_API_URL=http://localhost:8000
+      - VITE_API_URL=http://api:8000
     ports:
       - "4173:4173"
     working_dir: /app
+    networks:
+      - charts-app-network
+
+networks:
+  charts-app-network:
+    driver: bridge
